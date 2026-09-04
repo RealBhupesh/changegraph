@@ -399,7 +399,7 @@ Ingest semantic indexes produced outside ChangeGraph.
 
 ---
 
-# Milestone 13 — Advanced intelligence
+# Milestone 13 — Advanced intelligence foundation
 
 Only build these after benchmark evidence shows the core is trustworthy.
 
@@ -415,6 +415,233 @@ Potential capabilities:
 - test mutation experiments to measure selection strength;
 - self-hosted enterprise index/runner;
 - policy-as-code integrations.
+
+---
+
+# Milestone 14 — Repository Trust and Intent Drift
+
+## Goal
+
+Make repository-specific earned trust and declared-vs-actual scope visible and testable.
+
+## Features
+
+- trust state machine: Unproven, Observed, Calibrating, Trusted, Degraded, Suspended;
+- explicit promotion and immediate demotion rules;
+- persisted trust evidence/reasons;
+- conservative author provenance;
+- structured change intent;
+- impact-reality normalization;
+- intent-drift factors;
+- critical-boundary drift signals;
+- dashboard trust timeline;
+- PR intent-drift card.
+
+## Exit criteria
+
+- trusted state cannot be reached without sufficient calibration evidence and explicit owner opt-in;
+- serious false-safe event can demote trust immediately;
+- ambiguous author provenance resolves to `unknown`;
+- misleading PR text cannot reduce deterministic risk;
+- intent drift is fully evidence-linked.
+
+---
+
+# Milestone 15 — Minimum Evidence Testing
+
+## Goal
+
+Select the cheapest sufficient validation plan rather than merely ranking relevant tests.
+
+## Features
+
+- heterogeneous evidence actions: tests, suites, typecheck, lint, build, schema checks, sentinels, full suite;
+- expected action cost;
+- evidence coverage/overlap;
+- projected confidence gain;
+- conservative greedy optimizer;
+- mandatory evidence constraints;
+- hard fallback constraints;
+- planner explanation;
+- full-suite comparison.
+
+## Exit criteria
+
+- mandatory evidence cannot be removed by optimization;
+- hard fallback always results in full validation;
+- evidence overlap is not double-counted naively;
+- planner emits explicit cost/confidence assumptions;
+- ChangeBench can compare test-only vs heterogeneous evidence planning.
+
+---
+
+# Milestone 16 — ChangeBench public benchmark
+
+## Goal
+
+Turn ChangeGraph's claims into reproducible evidence.
+
+## Features
+
+- versioned benchmark case format;
+- historical replay engine;
+- future-data leakage guard;
+- full-suite baseline;
+- changed-file baseline;
+- same-package/static graph baselines;
+- ChangeGraph ablations;
+- safety metrics;
+- efficiency metrics;
+- calibration metrics;
+- miss taxonomy;
+- dataset provenance;
+- public benchmark page.
+
+## Exit criteria
+
+- replay rejects history newer than the benchmark case cutoff;
+- at least three transparent baselines run through the same interface;
+- safety metrics appear before efficiency metrics in public reports;
+- every failing-test miss is inspectable;
+- result page includes tool SHA, configuration versions, and dataset version;
+- synthetic and real-world cohorts are never silently combined.
+
+---
+
+# Milestone 17 — ChangeGraph MCP and GitHub Copilot Agent
+
+## Goal
+
+Make deterministic ChangeGraph intelligence available to coding agents without duplicating the analyzer.
+
+## Features
+
+### MCP
+
+- MCP 2026-07-28 compatible TypeScript server;
+- stateless remote HTTP transport;
+- local/stdio development transport;
+- per-tool schema validation;
+- repository-scoped authorization;
+- explicit read-only tool allowlist;
+- risk/confidence/trust/impact/test/intent/evidence-plan tools;
+- OpenTelemetry.
+
+### Copilot custom agent
+
+- repository custom-agent profile;
+- explicit ChangeGraph MCP tool allowlist;
+- evidence-ID grounding requirements;
+- low-confidence behavior contract;
+- test-selection explanation flow;
+- intent-drift explanation flow.
+
+## Exit criteria
+
+- unauthorized repository access through MCP is rejected;
+- V1 MCP exposes no mutation/general-shell tools;
+- external MCP host can analyze a real PR;
+- Copilot custom agent can answer blast-radius/test/evidence questions through ChangeGraph tools;
+- agent cannot convert a low-confidence ChangeGraph result into a claim of safety.
+
+---
+
+# Milestone 18 — Native Check actions and evidence-bound remediation
+
+## Goal
+
+Turn ChangeGraph findings into controlled user actions inside GitHub.
+
+## Features
+
+- `Run full suite` requested action;
+- exact report/head binding;
+- stale-action rejection;
+- `Generate regression test` request;
+- `Attempt candidate fix` request;
+- evidence packet generation;
+- remediation policy;
+- sandbox-only execution;
+- candidate patch validation;
+- reviewable patch/PR handoff;
+- audit log.
+
+## Exit criteria
+
+- Check action webhook is authenticated/idempotent;
+- full-suite action only broadens validation;
+- stale remediation requests are rejected;
+- remediation never edits host worker checkout;
+- no automatic merge path exists;
+- candidate patch includes validation evidence.
+
+---
+
+# Milestone 19 — Public Playground and GitHub Marketplace launch
+
+## Goal
+
+Make ChangeGraph easy to try, install, and distribute through GitHub-native channels.
+
+## Features
+
+### Playground
+
+- public PR URL analysis;
+- public repositories only;
+- static/read-only mode;
+- resource limits/rate limits;
+- cache by base/head/analyzer version;
+- sanitized report.
+
+### Marketplace App
+
+- public installability;
+- free pricing plan;
+- privacy policy;
+- support route;
+- terms/status/docs links;
+- Marketplace lifecycle event handling;
+- logo/feature card/screenshots;
+- install/uninstall flow;
+- security/support runbooks.
+
+### Marketplace Action
+
+- separate public repository;
+- root `action.yml`;
+- released ChangeGraph core/CLI integration;
+- clean-room workflow test;
+- immutable versioned releases.
+
+## Exit criteria
+
+- external repository can install app and receive a Check without developer assistance;
+- playground analyzes a public PR without repository installation;
+- uninstall stops privileged access/jobs and follows documented data lifecycle;
+- all Marketplace links/assets are valid;
+- free GitHub App meets current Marketplace submission checklist;
+- separate Action meets current Action Marketplace requirements;
+- benchmark page is public before Marketplace submission so performance claims are verifiable.
+
+---
+
+# Milestone 20 — Research-grade repository intelligence
+
+Only after the public platform is demonstrably trustworthy.
+
+Potential work:
+
+- dynamic per-test coverage;
+- mutation-based validation-strength estimation;
+- submodular/integer optimization for evidence planning;
+- learned ranking with deterministic safety envelope;
+- multi-repository service graph;
+- incident-linked change risk;
+- graph-based code ownership suggestions;
+- agent/human change-shape studies;
+- public ChangeGraph research reports;
+- self-hosted enterprise deployment.
 
 ---
 
@@ -434,4 +661,4 @@ These ideas are attractive but would reduce the quality of the project if built 
 - a custom sandbox runtime;
 - speculative enterprise SSO/admin features.
 
-The project becomes impressive through **depth, measurable correctness, and engineering judgment**, not feature count alone.
+The project becomes impressive through **depth, measurable correctness, earned trust, composability, and engineering judgment**, not feature count alone.
