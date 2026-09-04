@@ -32,7 +32,9 @@ For a supported repository and pull request, ChangeGraph should produce:
 - measured CI time and compute saved;
 - later, an isolated agent workflow that can create a candidate regression test or fix.
 
-## Example
+## Illustrative output
+
+The values below demonstrate the intended UX only. They are not benchmark claims.
 
 ```text
 ChangeGraph / Pull Request #812
@@ -127,31 +129,33 @@ These are evaluation targets, not claims about current performance.
 
 ## Repository status
 
-**Status: architecture and implementation planning.** No production code exists yet.
+**Status: research, architecture, product specification, and implementation planning complete. Production implementation has not started.**
 
 ## Documentation
 
 - [Design specification](docs/superpowers/specs/2026-09-04-changegraph-design.md)
 - [Technical architecture](docs/ARCHITECTURE.md)
+- [Architecture decisions](docs/DECISIONS.md)
 - [Research landscape](docs/RESEARCH.md)
 - [Product roadmap](docs/ROADMAP.md)
 - [Recruiter / portfolio demo strategy](docs/PORTFOLIO_DEMO.md)
 - [MVP implementation plan](docs/superpowers/plans/2026-09-04-changegraph-mvp.md)
+- [Agent implementation guardrails](AGENTS.md)
 
 ## Current stack decision
 
 - Node.js 24 LTS
 - TypeScript 6
 - Next.js 16.3.x with the current security patch line
-- React
-- pnpm workspaces
+- React 19.2-compatible release
+- pnpm 10 workspaces
 - PostgreSQL
 - Drizzle ORM
 - GitHub App + Webhooks + Checks API
 - TypeScript Compiler API for V1 symbol analysis
 - Vitest 5 for ChangeGraph's own tests
 - OpenTelemetry for traces/metrics
-- Docker-compatible isolated runners; Docker Sandboxes for the later agent-remediation path
+- Docker-isolated test runners; Docker Sandboxes for the later agent-remediation path
 
 ## Long-term direction
 
