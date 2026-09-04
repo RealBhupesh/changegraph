@@ -19,25 +19,31 @@ Before changing **platform expansion code** such as MCP, Copilot agents, ChangeB
 10. `docs/MARKETPLACE.md`
 11. `docs/superpowers/plans/2026-09-04-changegraph-platform-expansion.md`
 
+Before changing **Evidence Science research code** such as temporal propagation, adaptive validation, mutation witnesses, calibration, invariants, metamorphic relations, provenance, or attestations, also read:
+
+12. `docs/superpowers/specs/2026-09-04-changegraph-evidence-science-design.md`
+13. `docs/EVIDENCE_SCIENCE_RESEARCH.md`
+14. `docs/superpowers/plans/2026-09-04-changegraph-evidence-science.md`
+
 ## Product invariant
 
-ChangeGraph is **change intelligence and safe selective validation**, not a generic AI code-review wrapper.
+ChangeGraph is **change intelligence and adaptive evidence validation**, not a generic AI code-review wrapper.
 
-The evidence pipeline is:
+The long-term evidence pipeline is:
 
 ```text
 diff
 -> semantic changed symbols
 -> dependency/impact graph
--> test/validation links
--> historical evidence
--> risk + confidence
--> repository trust
--> intent drift review signal
--> minimum-evidence planner
--> deterministic policy
--> validation
+-> temporal/runtime evidence
+-> candidate validation experiments
+-> adaptive evidence planner
+-> mutation/invariant/metamorphic evidence where applicable
+-> calibrated safety envelope
+-> provenance-aware deterministic policy
+-> validation / abstention / fallback
 -> optional AI explanation/remediation
+-> evidence certificate
 -> MCP / GitHub / dashboard projections
 ```
 
@@ -45,9 +51,10 @@ Do not invert this architecture by asking an LLM which tests to run and then tre
 
 ## Safety rules
 
-- Low confidence broadens validation.
+- Low confidence or calibration-support mismatch broadens validation.
 - Protected hard fallbacks cannot be disabled by repository configuration.
 - LLM output cannot lower risk, raise confidence, raise Trust, suppress fallback, or mark a PR safe to merge.
+- LLM prose is not evidence. It may propose an executable hypothesis or explain existing evidence IDs.
 - Intent text may add review concern but can never lower deterministic risk.
 - Minimum Evidence optimization cannot remove mandatory evidence or protected full-suite fallbacks.
 - New repositories start in Observe mode.
@@ -60,6 +67,53 @@ Do not invert this architecture by asking an LLM which tests to run and then tre
 - Repository authorization is verified on every MCP tool call; client-supplied repository IDs are not authorization evidence.
 - GitHub Check requested actions are bound to the exact report/head SHA that rendered them.
 - Stale remediation requests are rejected rather than replayed against a newer head.
+- Co-change and co-failure are association evidence, not causal proof.
+- Mutation survivors may be `possibly-equivalent`; do not count every survivor as a testing failure.
+- Mined invariants are likely invariants, not formal specifications.
+- Metamorphic relations proposed by an LLM contribute zero trusted evidence until executable and validated.
+- Agent provenance is metadata, not a default risk penalty.
+- Same-agent code and same-agent tests belong to the same independence group unless independent evidence proves otherwise.
+- Evidence Certificates attest to collected evidence and policy decisions; they do not prove bug freedom or security.
+
+## Evidence Science rules
+
+### Adaptive planner
+
+- The first planner is deterministic and fully auditable.
+- Every selected experiment returns utility components, estimated cost source, expected evidence gain, and diversity gain.
+- Planner estimates are labeled as estimates until measured.
+- The planner must stop with `defer` or `fallback` when evidence remains insufficient; it may not invent confidence to finish cheaply.
+
+### Calibration
+
+- Do not display an arbitrary confidence number as probability that a PR is safe.
+- Calibration artifacts are repository/regime/version specific.
+- Record sample count, alpha/target, support region, model version, and shift diagnostics.
+- Outside-support changes must abstain or broaden validation.
+- Conformal or online-calibration guarantees must be stated only under the assumptions actually used by the implementation.
+
+### Temporal / causal research
+
+Maintain separate support dimensions:
+
+```text
+static
+historical association
+runtime/mechanistic
+interventional
+```
+
+Never collapse these into an unqualified causal probability.
+
+### ChangeBench leakage prevention
+
+For benchmark PR/commit N, no feature derived from N's outcome or any later event may influence N's ranking, calibration, invariant model, temporal graph, or learned model.
+
+Primary benchmark splits are time-ordered. Random splits are not allowed for the headline historical evaluation.
+
+### Learned models
+
+Do not add GNN/ML ranking to the authoritative path until deterministic B0-B7 baselines exist and the learned challenger wins on a frozen future window without worsening protected safety metrics.
 
 ## Engineering rules
 
@@ -74,6 +128,7 @@ Do not invert this architecture by asking an LLM which tests to run and then tre
 - Every score factor must be inspectable.
 - Every selected evidence action must expose one or more evidence reasons.
 - Every fallback must expose a reason.
+- Every EvidenceItem must contain provenance and a canonical content digest.
 - Every MCP tool has explicit input/output schemas and an access class.
 - ChangeBench historical replay always uses an `asOf` cutoff and rejects future evidence.
 - Marketplace/privacy/support copy must reflect actual implemented behavior, never boilerplate claims that the code does not satisfy.
@@ -94,7 +149,7 @@ Do not batch unrelated plan tasks into one giant commit.
 
 ## Architecture restraint
 
-Do not add these during MVP or early platform expansion unless benchmark evidence and a reviewed design change justify them:
+Do not add these during MVP or early research unless benchmark evidence and a reviewed design change justify them:
 
 - graph database;
 - vector database;
@@ -106,22 +161,27 @@ Do not add these during MVP or early platform expansion unless benchmark evidenc
 - paid billing/subscriptions;
 - broad multi-language support;
 - opaque ML risk decisions;
-- automatic merge flows.
+- automatic merge flows;
+- GNN ranking before benchmark baselines;
+- integer-programming optimization before the greedy planner is measured.
 
 PostgreSQL plus in-memory per-index traversal is the current graph architecture.
 
-The first Minimum Evidence optimizer is overlap-aware greedy planning. Do not replace it with integer programming, learned optimization, or a black-box solver until ChangeBench demonstrates a measurable limitation.
+The first Minimum Evidence optimizer is overlap/diversity-aware greedy planning. Do not replace it with a black-box solver until ChangeBench demonstrates a measurable limitation.
 
 ## MCP / agent tool design
 
-Prefer narrow tools such as:
+Prefer narrow domain tools such as:
 
 ```text
 get_impact_paths
 get_relevant_tests
-get_risk
-get_confidence
 minimum_evidence_plan
+evidence_summary
+next_best_experiment
+mutation_witnesses
+invariant_drift
+calibration_status
 ```
 
 over generic dangerous tools such as:
@@ -145,13 +205,14 @@ ChangeBench exists to falsify ChangeGraph claims, not market them.
 - Safety metrics are shown before efficiency metrics.
 - Every miss remains inspectable.
 - Tool commit/config/dataset versions are recorded.
+- Report per-repository distributions and failure cases, not only pooled means.
 - Do not omit cases because ChangeGraph performs badly on them unless the exclusion criterion was defined before evaluation and is documented.
 
 ## Measured claims only
 
-Values such as 99% failing-test recall, 50% test-count reduction, and 40% wall-clock reduction are **evaluation targets** in the design, not product claims.
+Values such as 99% failing-test recall, 50% test-count reduction, and 40% wall-clock reduction are **evaluation targets**, not product claims.
 
-Do not put a metric in the README, portfolio, release notes, Marketplace listing, or outreach material unless it comes from a reproducible benchmark run checked into or linked from the project.
+Do not put a metric in the README, portfolio, release notes, Marketplace listing, research summary, or outreach material unless it comes from a reproducible frozen benchmark run checked into or linked from the project.
 
 ## Change procedure for architecture decisions
 
@@ -171,12 +232,17 @@ A strong contribution improves at least one of:
 
 - semantic accuracy;
 - failing-test recall;
-- test reduction at unchanged safety;
-- minimum-evidence cost at unchanged safety;
+- false-safe rate;
+- validation cost at unchanged safety;
+- mutation witness usefulness;
+- evidence diversity robustness;
+- calibration quality/abstention behavior;
+- invariant/metamorphic evidence quality;
+- temporal impact prediction;
 - analysis latency;
-- confidence calibration;
 - repository Trust calibration;
 - intent-drift usefulness;
+- provenance/verifiability;
 - MCP interoperability;
 - explainability;
 - security/isolation;
