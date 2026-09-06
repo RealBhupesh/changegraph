@@ -10,19 +10,25 @@ This is the September 6, 2026 implementation brief synced from the user-maintain
 
 Earlier research, architecture, and `docs/superpowers` plans remain useful context, but implementation workers should map them through this current brief rather than blindly executing an older plan when the two differ.
 
+## Source synchronization
+
+[`SOURCE_SYNC_AUDIT.md`](./SOURCE_SYNC_AUDIT.md) records the audited Notion source revision, canonical GitHub blob, all 28 section checks, high-risk semantic details, and the drift rule for future Notion edits.
+
+Do not assume Notion and GitHub are still synchronized after the Notion page changes. Re-audit before implementing a newer source revision.
+
 ## Execution status
 
 [`changegraph-status.md`](./changegraph-status.md) is the required resumable implementation ledger. It must contain actual repository inspection results, commands executed, pass/fail results, blockers, and implementation decisions as Units A–L progress.
 
-## Documents required during implementation
+## Execution contracts maintained during implementation
 
-The canonical brief requires the implementation to produce and maintain these additional documents as the relevant capabilities become real:
+The canonical brief requires these documents to evolve from verified implementation behavior:
 
-- `supported-semantics.md` — exact supported TypeScript/IR/observable/verifier semantics and explicit unsupported cases.
-- `execution-security.md` — sandbox boundary, threat model, credentials/network/filesystem/resource controls, and security verification results.
-- `local-verification.md` — exact local setup, fixtures, solver/sandbox requirements, commands, and reproducible verification procedures.
+- [`supported-semantics.md`](./supported-semantics.md) — exact supported TypeScript/IR/observable/verifier semantics and explicit unsupported cases.
+- [`execution-security.md`](./execution-security.md) — sandbox boundary, threat model, credentials/network/filesystem/resource controls, and security verification results.
+- [`local-verification.md`](./local-verification.md) — exact local setup, fixtures, solver/sandbox requirements, commands, and reproducible verification procedures.
 
-Do not fill these with aspirational claims. They should be written from the implemented behavior and actual verification results.
+Their current scaffolds intentionally make no production claims. Do not fill them with aspirational behavior; update them from real code and executed checks.
 
 ## Implementation order
 
