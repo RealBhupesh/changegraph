@@ -1,0 +1,27 @@
+{
+  "name": "@changegraph/cli",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "changegraph": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@changegraph/semantic-contract": "workspace:*",
+    "@changegraph/semantic-delta": "workspace:*",
+    "@changegraph/attestations": "workspace:*",
+    "@changegraph/counterexample": "workspace:*",
+    "@changegraph/proof-memory": "workspace:*",
+    "@changegraph/fixtures": "workspace:*",
+    "@changegraph/verifier-differential": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  }
+}

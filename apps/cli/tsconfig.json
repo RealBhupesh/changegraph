@@ -1,0 +1,1 @@
+{ "extends": "../../tsconfig.json", "compilerOptions": { "outDir": "./dist", "rootDir": "./src" }, "include": ["src/**/*"], "references": [{ "path": "../../packages/semantic-contract" }, { "path": "../../packages/semantic-delta" }, { "path": "../../packages/attestations" }, { "path": "../../packages/counterexample" }, { "path": "../../packages/proof-memory" }] }

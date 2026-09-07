@@ -1,0 +1,83 @@
+version: 1
+intent:
+  summary: Increase premium discount from 10 percent to 20 percent
+  type: behavioral-change
+inputDomain:
+  type: object
+  additionalProperties: false
+  fields:
+    subtotalCents:
+      type: integer
+      min: 0
+      max: 100000
+      step: 100
+    tier:
+      type: enum
+      values: [standard, premium]
+observables:
+  - id: pricing-output
+    subjectId: pricing.calculateDiscount
+    kind: return-value
+    normalizer: identity-json-v1
+    comparator: exact-json-v1
+obligations:
+  - id: premium-discount-relation
+    kind: allowed-relation
+    subjectId: pricing.calculateDiscount
+    observableId: pricing-output
+    severity: high
+    required: true
+    when:
+      op: eq
+      args:
+        - {source: input, path: [tier]}
+        - {literal: premium}
+    assert:
+      op: eq
+      args:
+        - op: mul
+          args:
+            - {source: head, path: [discountCents]}
+            - {literal: 10}
+        - op: mul
+          args:
+            - {source: input, path: [subtotalCents]}
+            - {literal: 2}
+  - id: standard-discount-preserved
+    kind: preservation
+    subjectId: pricing.calculateDiscount
+    observableId: pricing-output
+    severity: critical
+    required: true
+    when:
+      op: eq
+      args:
+        - {source: input, path: [tier]}
+        - {literal: standard}
+    assert:
+      op: eq
+      args:
+        - {source: head, path: [discountCents]}
+        - {source: base, path: [discountCents]}
+  - id: discount-upper-bound
+    kind: property
+    subjectId: pricing.calculateDiscount
+    observableId: pricing-output
+    severity: critical
+    required: true
+    assert:
+      op: lte
+      args:
+        - {source: head, path: [discountCents]}
+        - {source: input, path: [subtotalCents]}
+  - id: discount-lower-bound
+    kind: property
+    subjectId: pricing.calculateDiscount
+    observableId: pricing-output
+    severity: critical
+    required: true
+    assert:
+      op: gte
+      args:
+        - {source: head, path: [discountCents]}
+        - {literal: 0}

@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "references": [
+    { "path": "./packages/semantic-contract" },
+    { "path": "./packages/obligations" },
+    { "path": "./packages/observables" },
+    { "path": "./packages/verifier-core" },
+    { "path": "./packages/verifier-differential" },
+    { "path": "./packages/verifier-fuzz" },
+    { "path": "./packages/verifier-symbolic" },
+    { "path": "./packages/counterexample" },
+    { "path": "./packages/proof-memory" },
+    { "path": "./packages/semantic-delta" },
+    { "path": "./packages/attestations" },
+    { "path": "./packages/fixtures" },
+    { "path": "./apps/cli" },
+    { "path": "./apps/web" },
+    { "path": "./apps/worker" }
+  ],
+  "files": []
+}

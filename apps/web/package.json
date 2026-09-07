@@ -1,0 +1,21 @@
+{
+  "name": "@changegraph/web",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/server.ts",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@changegraph/semantic-contract": "workspace:*",
+    "@changegraph/semantic-delta": "workspace:*",
+    "@changegraph/attestations": "workspace:*",
+    "@changegraph/fixtures": "workspace:*",
+    "@changegraph/proof-memory": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "tsx": "^4.19.2"
+  }
+}
